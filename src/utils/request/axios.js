@@ -11,9 +11,11 @@ import { sendErrorMessage } from "../message.js";
 //这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
 let baseURL;
 if(process.env.NODE_ENV != "development"){
-  baseURL='https://api.locyanfrp.cn'
+  baseURL='https://api.内网穿透.中国'
 }else{
-  baseURL='http://127.0.0.1:8080'
+  baseURL='http://36.50.226.125:8081'
+    // 草蚌埠住 这copilot
+    //
 }
 
 // 使用自定义的配置文件发送请求

@@ -19,13 +19,22 @@ const routes = [
         },
         component: () => import("../components/MainFunction/LoginPage.vue"),
     },
+    // 注册
+    {
+        path: "/join",
+        name: "join",
+        meta: {
+            title: "加入申请",
+        },
+        component: () => import("../components/MainFunction/RegisterPage.vue"),
+    },
     {
         path: "/blacklist",
         name: "blacklist",
         meta: {
             title: "黑名单列表",
         },
-        component: () => import("../components/MainFunction/LoginPage.vue"),
+        component: () => import("../components/ConsoleCenter/BlackList/index.vue"),
     },
 ];
 
@@ -42,9 +51,10 @@ if (localStorage.getItem("token")) {
 router.beforeEach((to, from, next) => {
     StartLoadingBar();
     const token = store.getters.get_token;
-    const isLoginPage = to.path === '/login';
+    // 判断是否需要登录 如果是首页或者登录页或者注册页则直接进入 写一个三元表达式
+    const isLoginPage = to.name === "login" || to.name === "join" || to.name === "MainPage";
 
-    if (!token && !isLoginPage) {
+    if (!token && !isLoginPage ) {
         next({ path: '/login', query: { redirect: to.fullPath } });
     } else {
         next();
@@ -57,7 +67,7 @@ router.afterEach((to, from) => {
     FinishLoadingBar();
     if (to.meta.title) {
         //设置标题
-        document.title = to.meta.title + " | 中国内网串通联盟联合黑名单管理系统";
+        document.title = to.meta.title + " | 中国内网穿透联盟联合串通管理系统";
     }
 })
 

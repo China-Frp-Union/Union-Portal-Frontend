@@ -8,12 +8,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppMainPage: typeof import('./src/components/AppCenter/AppMainPage.vue')['default']
-    AuthorizeAppLogs: typeof import('./src/components/LogsCenter/AuthorizeAppLogs.vue')['default']
-    BlackList: typeof import('./src/components/BlackList/index.vue')['default']
+    AuthorizeAppLogs: typeof import('./src/components/ConsoleCenter/LogsCenter/AuthorizeAppLogs.vue')['default']
+    BlackList: typeof import('./src/components/ConsoleCenter/BlackList/index.vue')['default']
     Dialog: typeof import('./src/components/Dialog.vue')['default']
     Header: typeof import('./src/components/MainFunction/MainPage/Header.vue')['default']
     LoadingBar: typeof import('./src/components/LoadingBar.vue')['default']
-    LoginLogs: typeof import('./src/components/LogsCenter/LoginLogs.vue')['default']
+    LoginLogs: typeof import('./src/components/ConsoleCenter/LogsCenter/LoginLogs.vue')['default']
     LoginPage: typeof import('./src/components/MainFunction/LoginPage.vue')['default']
     MainPage: typeof import('./src/components/MainFunction/MainPage.vue')['default']
     Menu: typeof import('./src/components/MainFunction/MainPage/Menu.vue')['default']
@@ -42,6 +42,7 @@ declare module 'vue' {
     RegisterPage: typeof import('./src/components/MainFunction/RegisterPage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SiteList: typeof import('./src/components/SiteCenter/SiteList.vue')['default']
     UserCenterMainPage: typeof import('./src/components/UserCenter/UserCenterMainPage.vue')['default']
   }
 }

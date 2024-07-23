@@ -8,15 +8,11 @@
           <n-grid cols="1" item-responsive>
             <n-gi span="1">
               <n-h2 prefix="bar" align-text type="success">
-                ChinaFrpUnion 统一身份验证
+                CFU 统一身份验证
               </n-h2>
             </n-gi>
             <n-gi span="1">
               <n-grid cols="1" item-responsive>
-                <n-gi span="1">
-                  <n-image src="https://www.locyan.cn/wp-content/uploads/2023/09/favicon.ico" object-fit="cover"
-                    :preview-disabled="true" width="150vw"></n-image>
-                </n-gi>
                 <n-gi span="1" style="padding: 2vw">
                   <n-form>
                     <n-form-item label="用户名">
@@ -66,6 +62,7 @@ function userLogin() {
   rs.then((res) => {
     if (res.status === 200) {
       store.commit("set_token", res.data.token);
+      store.commit("set_permission", res.data.permission)
       store.commit("set_user_info", res.data);
       loading.value = false;
       ldb.finish();
