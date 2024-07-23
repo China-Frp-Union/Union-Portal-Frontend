@@ -67,7 +67,7 @@ router.afterEach((to, from) => {
     FinishLoadingBar();
     if (to.meta.title) {
         //设置标题
-        document.title = to.meta.title + " | 中国内网穿透联盟联合串通管理系统";
+        document.title = to.meta.title + " | 中国内网穿透联盟管理系统";
     }
 })
 
