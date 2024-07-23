@@ -1,20 +1,28 @@
 {
-  "name": "frp-union",
-  "version": "1.0.0",
+  "name": "locyanoauth",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.2.0",
-    "vue": "^3.2.41"
+    "@vicons/ionicons5": "^0.12.0",
+    "axios": "^1.6.7",
+    "js-base64": "^3.7.6",
+    "qs": "^6.11.2",
+    "typescript": "^5.3.3",
+    "unplugin-vue-components": "^0.26.0",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@ricons/ionicons5": "^0.12.0",
-    "@vitejs/plugin-vue": "^3.1.2",
-    "naive-ui": "^2.34.2",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "naive-ui": "^2.35.0",
     "vfonts": "^0.0.3",
-    "vite": "^3.1.8"
+    "vite": "^5.0.0"
   }
 }
