@@ -36,6 +36,22 @@ const routes = [
         },
         component: () => import("../components/ConsoleCenter/BlackList/index.vue"),
     },
+    {
+        path: "/app",
+        name: "app",
+        meta: {
+            title: "应用管理",
+        },
+        component: () => import("../components/ConsoleCenter/BlackList/index.vue"),
+    },
+    {
+        path: "/site",
+        name: "site",
+        meta: {
+            title: "站点管理",
+        },
+        component: () => import("../components/ConsoleCenter/BlackList/index.vue"),
+    },
 ];
 
 const router = createRouter({

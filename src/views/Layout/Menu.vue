@@ -2,9 +2,9 @@
     <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" responsive />
 </template>
 
-<script>
-import { defineComponent, h } from "vue";
-import { NIcon, useMessage } from "naive-ui";
+<script setup>
+import { h } from "vue";
+import { NIcon } from "naive-ui";
 import { RouterLink } from "vue-router";
 import {
   BookOutline as BookIcon,
@@ -18,6 +18,7 @@ function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
+const activeKey = ""
 const menuOptions = [
   {
     label: () => h(
@@ -50,7 +51,7 @@ const menuOptions = [
       RouterLink,
       {
         to: {
-          name: "register",
+          name: "join",
         }
       },
       { default: () => "申请管理" }
@@ -125,9 +126,10 @@ const menuOptions = [
     ]
   }
 ];
+
 const token = store.getters.get_token;
-const permission = store.getters.get_permission;
-console.log(!permission)
+const permission = Number(store.getters.get_permission);
+console.log(permission)
 // 权限管理 token 或 permission 不存在时
 if (!token) {
   // 删除黑名单管理 和 申请管理 和 应用管理 和 站点管理
@@ -136,20 +138,10 @@ if (!token) {
   // 普通用户 删除 申请管理
   menuOptions.splice(2, 1);
   // 删掉用户
+  menuOptions.splice(4, 1);
 } else {
   // 啥也不干
   // 删掉用户
+  menuOptions.splice(5, 1);
 }
-export default defineComponent({
-  setup() {
-    const message = useMessage();
-    return {
-      menuOptions,
-      handleUpdateValue(key, item) {
-        message.info(`[onUpdate:value]: ${JSON.stringify(key)}`);
-        message.info(`[onUpdate:value]: ${JSON.stringify(item)}`);
-      }
-    };
-  }
-});
 </script>

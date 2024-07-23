@@ -6,6 +6,7 @@ const store = new vuex.Store({
     token: '',
     username: '',
     email: '',
+    permission: ""
   },
   getters: {
     get_token(state) {
@@ -16,6 +17,9 @@ const store = new vuex.Store({
     },
     get_email(state) {
       return state.email || localStorage.getItem('email') || ''
+    },
+    get_permission(state) {
+      return state.permission || localStorage.getItem('permission') || -1
     },
   },
   mutations: {
@@ -32,14 +36,20 @@ const store = new vuex.Store({
     set_user_info(state, userdata) {
       state.username = userdata.username
       state.email = userdata.email
+      state.permission = userdata.permission
+
       localStorage.setItem('username', userdata.username)
       localStorage.setItem('email', userdata.email)
+      localStorage.setItem('permission', userdata.permission)
     },
     delete_user_info(state) {
       state.usermame = ''
       state.email = ''
+      state.permission = -1
       localStorage.removeItem('username')
       localStorage.removeItem('email')
+      localStorage.removeItem('permission')
+
     }
   },
 

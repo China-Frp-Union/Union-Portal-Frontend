@@ -62,7 +62,6 @@ function userLogin() {
   rs.then((res) => {
     if (res.status === 200) {
       store.commit("set_token", res.data.token);
-      store.commit("set_permission", res.data.permission)
       store.commit("set_user_info", res.data);
       loading.value = false;
       ldb.finish();

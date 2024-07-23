@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <n-form @submit="register">
+    <n-form>
       <n-form-item label="网站名称">
         <n-input v-model:value="formData.name" placeholder="网站名称"/>
       </n-form-item>
@@ -33,7 +32,6 @@
         注册
       </n-button>
     </n-form>
-  </div>
 </template>
 
 <script setup>
@@ -52,18 +50,14 @@ const formData = ref({
   email: ''
 });
 function register() {
-  const response = post('/v1/application/create', formData.va
-  response.then((res) => {})
-  if (response.status === 200) {
-    sendSuccessMessage("成功提交申请");
-  } else {
-    sendErrorMessage("申请提交失败");
-    {}
+  const response = post('/v1/application/create', formData.value);
+  response.then((res) => {
+    if (res.status === 200) {
+      sendSuccessMessage("成功提交申请");
+    } else {
+      sendErrorMessage("申请提交失败");
+    }
+  })
 }
-// 可是这样写会报错，内容会全空 然后500
-// 可是这样写会报错，内容会全空 然后500
-// 怪，我之前就是这么写的
-// 这是 Copilot 帮我写的，react的写法和vue的写法不一样
-
 
 </script>
