@@ -13,6 +13,7 @@ import {
   WineOutline as WineIcon
 } from "@vicons/ionicons5";
 import store from "@utils/stores/profile.js";
+import router from "@src/router/index.js";
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
@@ -135,6 +136,7 @@ const menuOptions = [
               onClick: () => {
                 store.commit("delete_token");
                 store.commit("delete_user_info");
+                router.push("/login");
               }
             },
             "退出登录"

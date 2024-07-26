@@ -8,6 +8,7 @@
     <updateSite :id="updateId"></updateSite>
   </n-modal>
   <n-space vertical>
+    <n-button type="primary" @click="getSiteList()">刷新</n-button>
     <br/>
     <n-table striped>
       <thead>
@@ -31,7 +32,7 @@
         <td>{{i.code}}</td>
         <td>
           <n-space>
-            <n-button type="primary" @click="updateId = i.id;showUpdateSite=true" :disabled="!canEdit">更新</n-button>
+            <n-button type="info" @click="updateId = i.id;showUpdateSite=true" :disabled="!canEdit">更新</n-button>
             <n-button type="error" @click="deleteSite(i.id)" :disabled="!canDelete">删除</n-button>
           </n-space>
         </td>
@@ -73,8 +74,9 @@ async function getSiteList() {
 }
 // 可编辑：permission>2 或 manager
 // 可删除： permission>2
-let canEdit = (permission > 2 || manager === 1) ? true : false;
-let canDelete = (permission>2) ? true : false;
+const permission = store.getters.get_permission;
+let canEdit = (permission > 2 || manager === 1);
+let canDelete = (permission > 2);
 
 
 async function deleteSite(id){

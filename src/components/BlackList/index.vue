@@ -17,6 +17,7 @@
   </n-modal>
   <n-space vertical>
     <n-space>
+      <n-button type="primary" @click="getBlacklist()">刷新</n-button>
       <n-button type="primary" @click="showAddBlackListElement = true">新增黑名单</n-button>
       <n-input v-model:value="searchByEmail" placeholder="输入邮箱"></n-input>
       <n-button type="primary" @click="getBlackListByEmail()">搜索</n-button>

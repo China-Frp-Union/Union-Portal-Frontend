@@ -20,6 +20,7 @@ declare module 'vue' {
     LoginPage: typeof import('./src/components/MainFunction/LoginPage.vue')['default']
     MainPage: typeof import('./src/components/MainFunction/MainPage.vue')['default']
     Message: typeof import('./src/components/Message.vue')['default']
+    NAffix: typeof import('naive-ui')['NAffix']
     NAvatar: typeof import('naive-ui')['NAvatar']
     NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']

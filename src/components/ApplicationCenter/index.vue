@@ -1,5 +1,6 @@
 <template>
   <n-space vertical>
+    <n-button type="primary" @click="getApplicationList()">刷新</n-button>
     <br/>
     <n-table striped>
       <thead>
@@ -34,9 +35,9 @@
 </template>
 
 <script setup>
-import {Delete, get} from "@utils/request/axios.js";
+import { get } from "@utils/request/axios.js";
 import { ref } from "vue";
-import {sendErrorMessage, sendSuccessMessage} from "@utils/message.js";
+import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
 import store from "@utils/stores/profile.js";
 import { useDialog } from "naive-ui";
 

@@ -17,8 +17,8 @@
   </n-modal>
   <n-space vertical>
     <n-space>
-      <n-button type="primary" @click="showAddApp = true">新增应用</n-button>
       <n-button type="primary" @click="getApplist">刷新</n-button>
+      <n-button type="primary" @click="showAddApp = true">新增应用</n-button>
     </n-space>
     <br/>
     <n-table striped>

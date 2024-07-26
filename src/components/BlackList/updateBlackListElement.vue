@@ -31,15 +31,15 @@ const props = defineProps({
 async function submitForm(){
   const info = getInfo(formValue.value);
   info["username"] = store.getters.get_username;
-  info["id"] = props.id
+  info["id"] = props.id;
   const rs = await post("/v1/blacklist/update/web", info);
   if (rs.status === 200) {
     sendSuccessMessage("更新成功");
   } else {
     sendErrorMessage("更新失败: " + rs.data.msg);
   }
-
 }
+
 // 取出不为空的值
 function getInfo(array){
   const filledFields = {};

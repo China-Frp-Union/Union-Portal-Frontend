@@ -13,8 +13,6 @@ if(process.env.NODE_ENV !== "development"){
   baseURL='https://api.内网穿透.中国'
 }else{
   baseURL='http://36.50.226.125:8081'
-    // 草蚌埠住 这copilot
-    //
 }
 
 // 使用自定义的配置文件发送请求
@@ -129,18 +127,20 @@ export function get(url, params) {
  * @param params
  * @param headers
  */
-export function post(url, params, headers) {
+export function post(url, params, headers = {}) {
     return new Promise((resolve, reject) => {
         instance
-            .post(url, QS.stringify(params), headers)
+            .post(url, QS.stringify(params), { headers: { ...headers, 'Content-Type': 'application/x-www-form-urlencoded' } })
             .then((res) => {
                 resolve(res.data);
             })
             .catch((err) => {
-                reject(err.data);
+                reject(err.response ? err.response.data : err.message);
             });
     });
 }
+
+
 
 /**
  * delete方法，对应delete请求
