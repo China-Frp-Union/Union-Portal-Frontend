@@ -4,7 +4,7 @@
       :mask-closable="false"
       preset="card"
       style="width: 600px"
-      title="添加黑名单">
+      title="修改站点信息">
     <updateSite :id="updateId"></updateSite>
   </n-modal>
   <n-space vertical>

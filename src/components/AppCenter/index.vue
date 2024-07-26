@@ -12,7 +12,7 @@
       :mask-closable="false"
       preset="card"
       style="width: 600px"
-      title="新建应用">
+      title="修改应用">
     <updateApp :id="updateId"></updateApp>
   </n-modal>
   <n-space vertical>
