@@ -32,8 +32,8 @@
         <td>{{i.code}}</td>
         <td>
           <n-space>
-            <n-button type="info" @click="updateId = i.id;showUpdateSite=true" :disabled="!canEdit">更新</n-button>
-            <n-button type="error" @click="deleteSite(i.id)" :disabled="!canDelete">删除</n-button>
+            <n-button type="info" @click="updateId = i.id;showUpdateSite=true" :disabled="!canEdit[i.id]">更新</n-button>
+            <n-button type="error" @click="deleteSite(i.id)" :disabled="!canDelete[i.id]">删除</n-button>
           </n-space>
         </td>
       </tr>
@@ -50,6 +50,8 @@ import store from "@utils/stores/profile.js";
 import { useDialog } from "naive-ui";
 import updateSite from "./updateSite.vue";
 
+const canEdit = ref([]);
+const canDelete = ref([]);
 const updateId = ref("");
 const showUpdateSite = ref(false);
 const dialog = useDialog();
@@ -66,17 +68,25 @@ const siteList = ref([
 ])
 async function getSiteList() {
   const rs = await get("/v1/list/get");
+  const permission = Number(store.getters.get_permission);
   if (rs.status === 200) {
     siteList.value = rs.data.list;
+    siteList.value.forEach((item) => {
+      // 获取索引
+      let i = item.id;
+      canEdit.value[i] = item.manager === store.getters.get_username || permission > 1;
+      canDelete.value[i] = permission > 1;
+    })
+    console.log(canEdit);
   } else {
     sendErrorMessage("列表获取失败");
   }
 }
 // 可编辑：permission>2 或 manager
 // 可删除： permission>2
-const permission = store.getters.get_permission;
-let canEdit = (permission > 2 || manager === 1);
-let canDelete = (permission > 2);
+// const permission = Number(store.getters.get_permission);
+// let canEdit = (permission > 2 || manager === 1);
+// let canDelete = (permission > 2);
 
 
 async function deleteSite(id){
