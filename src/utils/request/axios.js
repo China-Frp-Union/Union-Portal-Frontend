@@ -135,7 +135,7 @@ export function post(url, params, headers = {}) {
                 resolve(res.data);
             })
             .catch((err) => {
-                reject(err.response ? err.response.data : err.message);
+                reject(err.data);
             });
     });
 }
