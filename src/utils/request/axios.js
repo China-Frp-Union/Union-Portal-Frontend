@@ -10,7 +10,7 @@ import Base64 from "qs/lib/utils";
 //这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
 let baseURL;
 if(process.env.NODE_ENV !== "development"){
-  baseURL='https://api.内网穿透.中国'
+  baseURL='https://接口.内网穿透.中国'
 }else{
   baseURL='http://36.50.226.125:8081'
 }
