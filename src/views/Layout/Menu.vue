@@ -12,13 +12,12 @@ import {
   PersonOutline as PersonIcon,
   WineOutline as WineIcon
 } from "@vicons/ionicons5";
-import store from "../../utils/stores/profile.js";
+import store from "@utils/stores/profile.js";
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
-const activeKey = ""
 const menuOptions = [
   {
     label: () => h(
@@ -41,7 +40,7 @@ const menuOptions = [
           name: "blacklist",
         }
       },
-      { default: () => "黑名单管理" }
+      { default: () => "黑名单列表" }
     ),
     key: "blacklist",
     icon: renderIcon(HomeIcon)
@@ -51,7 +50,7 @@ const menuOptions = [
       RouterLink,
       {
         to: {
-          name: "join",
+          name: "apply",
         }
       },
       { default: () => "申请管理" }
@@ -105,7 +104,7 @@ const menuOptions = [
                 },
                 { default: () => "登录" }
             ),
-            key: "narrator",
+            key: "login",
             icon: renderIcon(PersonIcon)
           },
           {
@@ -118,10 +117,28 @@ const menuOptions = [
                 },
                 { default: () => "申请加入" }
             ),
-            key: "sheep-man",
+            key: "join",
             icon: renderIcon(PersonIcon)
           }
         ]
+      }
+    ]
+  },
+  {
+    label: store.getters.get_username,
+    key: "username_label",
+    children: [
+      {
+        label: () => h(
+            "a",
+            {
+              onClick: () => {
+                store.commit("delete_token");
+                store.commit("delete_user_info");
+              }
+            },
+            "退出登录"
+        )
       }
     ]
   }
@@ -129,7 +146,6 @@ const menuOptions = [
 
 const token = store.getters.get_token;
 const permission = Number(store.getters.get_permission);
-console.log(permission)
 // 权限管理 token 或 permission 不存在时
 if (!token) {
   // 删除黑名单管理 和 申请管理 和 应用管理 和 站点管理
@@ -143,5 +159,13 @@ if (!token) {
   // 啥也不干
   // 删掉用户
   menuOptions.splice(5, 1);
+}
+</script>
+<script>
+import { ref } from "vue";
+
+const activeKey = ref("");
+export function handleActiveKeyChange(name){
+  activeKey.value = name;
 }
 </script>

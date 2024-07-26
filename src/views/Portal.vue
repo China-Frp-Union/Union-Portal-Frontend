@@ -25,7 +25,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import router from "../router/index";
+import router from "@src/router";
 import Header from "./Layout/Header.vue";
 
 

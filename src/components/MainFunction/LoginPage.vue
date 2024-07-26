@@ -36,10 +36,10 @@
 
 import { ref } from "vue";
 import { useLoadingBar } from "naive-ui";
-import { SendErrorDialog } from "../../utils/dialog.js"
-import { post, getUrlKey } from "../../utils/request/axios"
-import store from "../../utils/stores/profile.js";
-import router from "../../router";
+import { SendErrorDialog } from "@utils/dialog.js"
+import { post, getUrlKey } from "@utils/request/axios.js"
+import store from "@utils/stores/profile.js";
+import router from "@src/router";
 
 const loading = ref(false);
 const ldb = useLoadingBar();
@@ -55,23 +55,21 @@ if (data != null) {
   rsInfo = JSON.parse(atob(data));
 }
 
-function userLogin() {
+async function userLogin() {
   loading.value = true;
   ldb.start();
-  const rs = post("/v1/users/login", userInfo.value);
-  rs.then((res) => {
-    if (res.status === 200) {
-      store.commit("set_token", res.data.token);
-      store.commit("set_user_info", res.data);
-      loading.value = false;
-      ldb.finish();
-      router.push("/")
-    } else {
-      SendErrorDialog(res.data);
-      loading.value = false;
-      ldb.error();
-    }
-  })
+  const rs = await post("/v1/users/login", userInfo.value);
+  if (rs.status === 200) {
+    store.commit("set_token", rs.data.token);
+    store.commit("set_user_info", rs.data);
+    loading.value = false;
+    ldb.finish();
+    await router.push("/")
+  } else {
+    SendErrorDialog(rs.data.msg);
+    loading.value = false;
+    ldb.error();
+  }
 }
 
 </script>

@@ -36,8 +36,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import { post } from "../../utils/request/axios.js";
-import { sendSuccessMessage, sendErrorMessage} from '../../utils/message.js';
+import { post } from "@utils/request/axios.js";
+import { sendSuccessMessage, sendErrorMessage} from '@utils/message.js';
 
 const formData = ref({
   name: '',

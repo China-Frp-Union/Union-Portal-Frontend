@@ -3,14 +3,13 @@ import axios from "axios";
 // 序列化
 import QS from "qs";
 // vuex
-import store from "../stores/profile.js";
-import router from "../../router/index.js";
-import Base64 from "qs/lib/utils.js";
-import { sendErrorMessage } from "../message.js";
+import store from "../stores/profile";
+import router from "../../router/index";
+import Base64 from "qs/lib/utils";
 
 //这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
 let baseURL;
-if(process.env.NODE_ENV != "development"){
+if(process.env.NODE_ENV !== "development"){
   baseURL='https://api.内网穿透.中国'
 }else{
   baseURL='http://36.50.226.125:8081'
@@ -106,7 +105,7 @@ instance.interceptors.response.use(
 
 /**
  * get方法，对应get请求
- * @param {String} url [请求的url地址]
+ * @param url
  * @param params
  */
 export function get(url, params) {
@@ -126,8 +125,8 @@ export function get(url, params) {
 
 /**
  * post方法，对应post请求
- * @param {String} url [请求的url地址]
- * @param {Object} params [请求时携带的参数]
+ * @param url
+ * @param params
  * @param headers
  */
 export function post(url, params, headers) {
@@ -145,13 +144,15 @@ export function post(url, params, headers) {
 
 /**
  * delete方法，对应delete请求
- * @param {String} url [请求的url地址]
- * @param {Object} params [请求时携带的参数]
+ * @param url
+ * @param params
  */
 export function Delete(url, params) {
     return new Promise((resolve, reject) => {
         instance
-            .delete(url, QS.stringify(params))
+            .delete(url, {
+                params: params,
+            })
             .then((res) => {
                 resolve(res.data);
             })

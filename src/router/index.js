@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { FinishLoadingBar, StartLoadingBar } from "../utils/loadingbar.js";
+import { handleActiveKeyChange } from "../views/Layout/Menu.vue";
 import store from "../utils/stores/profile.js";
 
 const routes = [
@@ -34,7 +35,7 @@ const routes = [
         meta: {
             title: "黑名单列表",
         },
-        component: () => import("../components/ConsoleCenter/BlackList/index.vue"),
+        component: () => import("../components/BlackList/index.vue"),
     },
     {
         path: "/app",
@@ -42,7 +43,7 @@ const routes = [
         meta: {
             title: "应用管理",
         },
-        component: () => import("../components/ConsoleCenter/BlackList/index.vue"),
+        component: () => import("../components/AppCenter/index.vue"),
     },
     {
         path: "/site",
@@ -50,7 +51,15 @@ const routes = [
         meta: {
             title: "站点管理",
         },
-        component: () => import("../components/ConsoleCenter/BlackList/index.vue"),
+        component: () => import("../components/SiteCenter/index.vue"),
+    },
+    {
+        path: "/apply",
+        name: "apply",
+        meta: {
+            title: "申请管理",
+        },
+        component: () => import("../components/ApplicationCenter/index.vue"),
     },
 ];
 
@@ -85,6 +94,7 @@ router.afterEach((to, from) => {
         //设置标题
         document.title = to.meta.title + " | 中国内网穿透联盟管理系统";
     }
+    handleActiveKeyChange(to.name);
 })
 
 export default router;
