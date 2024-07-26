@@ -150,8 +150,9 @@ const token = store.getters.get_token;
 const permission = Number(store.getters.get_permission);
 // 权限管理 token 或 permission 不存在时
 if (!token) {
-  // 删除黑名单管理 和 申请管理 和 应用管理 和 站点管理
-  menuOptions.splice(1, 4);
+  // 删除 申请管理 和 应用管理 和 站点管理
+  menuOptions.splice(2, 3);
+  menuOptions.splice(3,1)
 } else if (permission === 0) {
   // 普通用户 删除 申请管理
   menuOptions.splice(2, 1);

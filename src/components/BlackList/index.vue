@@ -18,7 +18,7 @@
   <n-space vertical>
     <n-space>
       <n-button type="primary" @click="getBlacklist()">刷新</n-button>
-      <n-button type="primary" @click="showAddBlackListElement = true">新增黑名单</n-button>
+      <n-button type="primary" @click="showAddBlackListElement = true" :disabled="notLogin">新增黑名单</n-button>
       <n-input v-model:value="searchByEmail" placeholder="输入邮箱"></n-input>
       <n-button type="primary" @click="getBlackListByEmail()">搜索</n-button>
     </n-space>
@@ -49,8 +49,8 @@
         <td>{{i.createdAt}}</td>
         <td>{{i.updatedAt}}</td>
         <td><n-space>
-          <n-button type="info" @click="updateId = i.id;showUpdateBlackListElement = true">更新</n-button>
-          <n-button type="error" @click="deleteBlackList(i.id)">删除</n-button>
+          <n-button type="info" @click="updateId = i.id;showUpdateBlackListElement = true" :disabled="notLogin">更新</n-button>
+          <n-button type="error" @click="deleteBlackList(i.id)" :disabled="notLogin">删除</n-button>
         </n-space></td>
       </tr>
       </tbody>
@@ -67,6 +67,7 @@ import updateBlackListElement from "./updateBlackListElement.vue";
 import store from "@utils/stores/profile.js";
 import { useDialog } from "naive-ui";
 
+const notLogin = !store.getters.get_token;
 const updateId = ref("");
 const searchByEmail = ref("");
 const dialog = useDialog();

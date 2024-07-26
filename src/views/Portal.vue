@@ -6,13 +6,11 @@
       <n-layout position="absolute" style="top: 64px;">
         <n-layout content-style="padding: 24px;" :native-scrollbar="false">
           <router-view v-slot="{ Component }">
-            <KeepAlive :max="10">
-              <Transition name="fade" mode="out-in" :duration="400">
-                <div :key="router.currentRoute.value.name">
-                  <component :is="Component" />
-                </div>
-              </Transition>
-            </KeepAlive>
+            <Transition name="fade" mode="out-in" :duration="400">
+              <div :key="router.currentRoute.value.name">
+                <component :is="Component" />
+              </div>
+            </Transition>
           </router-view>
         </n-layout>
       </n-layout>

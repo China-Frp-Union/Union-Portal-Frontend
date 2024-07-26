@@ -77,7 +77,7 @@ router.beforeEach((to, from, next) => {
     StartLoadingBar();
     const token = store.getters.get_token;
     // 判断是否需要登录 如果是首页或者登录页或者注册页则直接进入 写一个三元表达式
-    const isLoginPage = to.name === "login" || to.name === "join" || to.name === "MainPage";
+    const isLoginPage = to.name === "login" || to.name === "join" || to.name === "MainPage" || to.name === "blacklist";
 
     if (!token && !isLoginPage ) {
         next({ path: '/login', query: { redirect: to.fullPath } });
