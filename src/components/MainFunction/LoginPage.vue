@@ -4,7 +4,7 @@
       <n-layout has-sider
         style="background-image: url('https://cdn.imlazy.ink:233/img/background/89217849_p0.jpg'); background-size: cover;min-height: 100vh">
         <n-layout-sider bordered content-style="display: flex; align-items: center; justify-content: center;"
-          style="min-height: 100vh;background-color: rgba(255, 255, 255, 0.8);" width="20vw">
+          class="sidebar">
           <n-grid cols="1" item-responsive>
             <n-gi span="1">
               <n-h2 prefix="bar" align-text type="success">
@@ -73,3 +73,19 @@ async function userLogin() {
 }
 
 </script>
+
+<style scoped>
+.sidebar {
+  min-height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 25vw !important;
+  max-width: 25vw !important;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+}
+</style>

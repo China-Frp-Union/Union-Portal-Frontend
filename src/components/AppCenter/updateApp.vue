@@ -1,10 +1,10 @@
 <template>
   <n-form :model="formValue">
     <n-form-item label="应用名" path="appName">
-      <n-input v-model:value="formValue.appName" placeholder="请输入应用名"/>
+      <n-input v-model:value="formValue.appName" placeholder="请输入应用名" />
     </n-form-item>
     <n-form-item label="应用描述" path="appDescription">
-      <n-input v-model:value="formValue.appDescription" placeholder="请输入应用描述"/>
+      <n-input v-model:value="formValue.appDescription" placeholder="请输入应用描述" />
     </n-form-item>
     <n-button type="primary" @click="submitForm">提交</n-button>
   </n-form>
@@ -14,6 +14,7 @@ import { ref, defineProps } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
+import { FinishLoadingBar, StartLoadingBar } from "@utils/loadingbar.js";
 
 const formValue = ref({
   "appName": "",
@@ -28,7 +29,8 @@ const props = defineProps({
 })
 
 
-async function submitForm(){
+async function submitForm() {
+  StartLoadingBar();
   const info = getInfo(formValue.value);
   info["username"] = store.getters.get_username;
   info["id"] = props.id
@@ -38,12 +40,12 @@ async function submitForm(){
   } else {
     sendErrorMessage("更新失败: " + rs.data.msg);
   }
-
+  FinishLoadingBar();
 }
 // 取出不为空的值
-function getInfo(array){
+function getInfo(array) {
   const filledFields = {};
-  for (const key in array){
+  for (const key in array) {
     if (array[key] !== '' && array[key] !== null && array[key] !== undefined) {
       filledFields[key] = array[key];
     }
