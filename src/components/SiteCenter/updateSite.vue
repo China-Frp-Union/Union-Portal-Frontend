@@ -1,16 +1,16 @@
 <template>
   <n-form :model="formValue">
     <n-form-item label="站点名" path="name">
-      <n-input v-model:value="formValue.name" placeholder="请输入站点名"/>
+      <n-input v-model:value="formValue.name" placeholder="请输入站点名" />
     </n-form-item>
     <n-form-item label="站点描述" path="description">
-      <n-input v-model:value="formValue.description" placeholder="请输入站点描述"/>
+      <n-input v-model:value="formValue.description" placeholder="请输入站点描述" />
     </n-form-item>
     <n-form-item label="站点 URL" path="url">
-      <n-input v-model:value="formValue.url" placeholder="请输入站点 URL"/>
+      <n-input v-model:value="formValue.url" placeholder="请输入站点 URL" />
     </n-form-item>
     <n-form-item label="LOGO URL" path="logoUrl">
-      <n-input v-model:value="formValue.logoUrl" placeholder="请输入站点 LOGO URL"/>
+      <n-input v-model:value="formValue.logoUrl" placeholder="请输入站点 LOGO URL" />
     </n-form-item>
     <n-button type="primary" @click="submitForm">提交</n-button>
   </n-form>
@@ -20,6 +20,7 @@ import { ref, defineProps } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
+import { FinishLoadingBar, StartLoadingBar } from "@utils/loadingbar.js";
 
 const formValue = ref({
   "name": "",
@@ -36,7 +37,8 @@ const props = defineProps({
 })
 
 
-async function submitForm(){
+async function submitForm() {
+  StartLoadingBar();
   const info = getInfo(formValue.value);
   info["username"] = store.getters.get_username;
   info["id"] = props.id
@@ -46,12 +48,12 @@ async function submitForm(){
   } else {
     sendErrorMessage("更新失败: " + rs.data.msg);
   }
-
+  FinishLoadingBar();
 }
 // 取出不为空的值
-function getInfo(array){
+function getInfo(array) {
   const filledFields = {};
-  for (const key in array){
+  for (const key in array) {
     if (array[key] !== '' && array[key] !== null && array[key] !== undefined) {
       filledFields[key] = array[key];
     }

@@ -1,10 +1,5 @@
 <template>
-  <n-form
-      inline
-      :label-width="80"
-      :model="formValue"
-      :size="'medium'"
-  >
+  <n-form inline :label-width="80" :model="formValue" :size="'medium'">
     <n-grid cols="1" :y-gap="3">
       <n-form-item-gi span="1" label="应用名" path="email">
         <n-input v-model:value="formValue.appName" placeholder="输入应用名" />
@@ -26,6 +21,7 @@ import { ref } from "vue";
 import { post } from "@utils/request/axios.js";
 import store from "@utils/stores/profile.js";
 import { SendSuccessDialog, SendErrorDialog } from "@utils/dialog.js";
+import { FinishLoadingBar, StartLoadingBar } from "@utils/loadingbar.js";
 
 const formValue = ref({
   "username": store.getters.get_username,
@@ -34,14 +30,16 @@ const formValue = ref({
 })
 
 
-async function submit(){
+async function submit() {
+  StartLoadingBar();
   const info = formValue.value;
   const rs = await post("/v1/app/create", info);
-  if (rs.status === 200){
+  if (rs.status === 200) {
     SendSuccessDialog("添加成功");
   } else {
     SendErrorDialog("添加失败, 错误信息: " + rs.status + rs.data.msg)
   }
+  FinishLoadingBar();
 }
 
 </script>
