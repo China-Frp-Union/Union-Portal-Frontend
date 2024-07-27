@@ -42,6 +42,7 @@ declare module 'vue' {
     NTable: typeof import('naive-ui')['NTable']
     NTag: typeof import('naive-ui')['NTag']
     RegisterPage: typeof import('./src/components/MainFunction/RegisterPage.vue')['default']
+    ResetPassword: typeof import('./src/components/User/resetPassword.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SiteCenter: typeof import('./src/components/SiteCenter/index.vue')['default']

@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 import { post } from "@utils/request/axios.js";
 import store from "@utils/stores/profile.js";
 import { SendSuccessDialog, SendErrorDialog } from "@utils/dialog.js";
@@ -29,6 +29,7 @@ const formValue = ref({
   "appDescription": "",
 })
 
+const emit = defineEmits(["addSuccess"])
 
 async function submit() {
   StartLoadingBar();
@@ -36,6 +37,7 @@ async function submit() {
   const rs = await post("/v1/app/create", info);
   if (rs.status === 200) {
     SendSuccessDialog("添加成功");
+    emit("addSuccess");
   } else {
     SendErrorDialog("添加失败, 错误信息: " + rs.status + rs.data.msg)
   }

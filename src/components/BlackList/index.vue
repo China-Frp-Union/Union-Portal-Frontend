@@ -1,15 +1,15 @@
 <template>
   <n-modal v-model:show="showAddBlackListElement" :mask-closable="false" preset="card" style="width: 600px"
     title="添加黑名单">
-    <addBlackListElement></addBlackListElement>
+    <addBlackListElement @addSuccess="handleAddSuccess()"></addBlackListElement>
   </n-modal>
   <n-modal v-model:show="showUpdateBlackListElement" :mask-closable="false" preset="card" style="width: 600px"
     title="修改黑名单">
-    <updateBlackListElement :id="updateId"></updateBlackListElement>
+    <updateBlackListElement :id="updateId" @updateSuccess="handleUpdateSuccess()"></updateBlackListElement>
   </n-modal>
   <n-space vertical>
     <n-space>
-      <n-button type="primary" @click="getBlacklist()">刷新</n-button>
+      <n-button type="primary" @click="getBlacklist()" :loading="loading">刷新</n-button>
       <n-button type="primary" @click="showAddBlackListElement = true" :disabled="notLogin">新增黑名单</n-button>
       <n-input v-model:value="searchByEmail" placeholder="输入邮箱"></n-input>
       <n-button type="primary" @click="getBlackListByEmail()">搜索</n-button>
@@ -92,14 +92,28 @@ const blacklist = ref([
   }
 ])
 
+function handleUpdateSuccess(){
+  showUpdateBlackListElement.value = false;
+  getBlacklist();
+}
+
+function handleAddSuccess(){
+  showAddBlackListElement.value = false;
+  getBlacklist();
+}
+
 async function getBlacklist() {
+  loading.value = true;
+  success.value = false;
   StartLoadingBar();
   const rs = await get("/v1/blacklist/list/all");
   if (rs.status === 200) {
+    if (rs.data.list.length === 0){
+      blacklist.value = [];
+    }
     blacklist.value = rs.data.list;
     loading.value = false;
     success.value = true;
-    console.log(blacklist.value);
   } else {
     sendErrorMessage("列表获取失败");
   }

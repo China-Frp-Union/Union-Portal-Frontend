@@ -1,13 +1,13 @@
 <template>
   <n-modal v-model:show="showAddApp" :mask-closable="false" preset="card" style="width: 600px" title="新建应用">
-    <addApp></addApp>
+    <addApp @addSuccess="handleAddSuccess()"></addApp>
   </n-modal>
   <n-modal v-model:show="showUpdateApp" :mask-closable="false" preset="card" style="width: 600px" title="修改应用">
-    <updateApp :id="updateId"></updateApp>
+    <updateApp :id="updateId" @updateSuccess="handleUpdateSuccess()"></updateApp>
   </n-modal>
   <n-space vertical>
     <n-space>
-      <n-button type="primary" @click="getApplist">刷新</n-button>
+      <n-button type="primary" @click="getApplist" :loading="loading">刷新</n-button>
       <n-button type="primary" @click="showAddApp = true">新增应用</n-button>
     </n-space>
     <br />
@@ -89,7 +89,19 @@ const showAddApp = ref(false);
 const showUpdateApp = ref(false);
 const appList = ref([]);
 
+function handleAddSuccess(){
+  showAddApp.value = false;
+  getAppList();
+}
+
+function handleUpdateSuccess(){
+  showUpdateApp.value = false;
+  getAppList();
+}
+
 async function getApplist() {
+  loading.value = true;
+  success.value = false;
   StartLoadingBar();
   const info = {
     "username": store.getters.get_username

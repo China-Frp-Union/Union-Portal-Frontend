@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 import { get, post } from "@utils/request/axios.js";
 import store from "../../utils/stores/profile.js";
 import { sendErrorMessage } from "@utils/message.js";
@@ -33,6 +33,9 @@ const formValue = ref({
   "email": "",
   "reason": ""
 })
+
+const emit = defineEmits(["addSuccess"])
+
 const appList = ref([])
 
 async function getAppList() {
@@ -66,6 +69,7 @@ async function submit() {
   const rs = await post("/v1/blacklist/create/web", info);
   if (rs.status === 200) {
     SendSuccessDialog("添加成功");
+    emit("addSuccess");
   } else {
     SendErrorDialog("添加失败, 错误信息: " + rs.status + rs.data.msg)
   }

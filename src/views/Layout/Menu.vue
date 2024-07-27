@@ -1,4 +1,8 @@
 <template>
+    <n-modal v-model:show="showResetPassword" :mask-closable="false" preset="card" style="width: 600px"
+    title="修改密码">
+    <resetPassword @updateSuccess="handleUpdateSuccess()"></resetPassword>
+  </n-modal>
     <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" responsive />
 </template>
 
@@ -14,11 +18,17 @@ import {
 } from "@vicons/ionicons5";
 import store from "@utils/stores/profile.js";
 import router from "@src/router/index.js";
+import resetPassword from "@src/components/User/resetPassword.vue";
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
+function handleUpdateSuccess(){
+  showResetPassword.value = false;
+}
+
+const showResetPassword = ref(false);
 const menuOptions = [
   {
     label: () => h(
@@ -129,6 +139,18 @@ const menuOptions = [
     label: store.getters.get_username,
     key: "username_label",
     children: [
+    {
+        label: () => h(
+          "a",
+          {
+            onClick: () => {
+              showResetPassword.value = true;
+            }
+          },
+          "修改密码"
+        ),
+        key: "reset_password"
+      },
       {
         label: () => h(
             "a",
@@ -140,7 +162,8 @@ const menuOptions = [
               }
             },
             "退出登录"
-        )
+        ),
+        key: "logout"
       }
     ]
   }

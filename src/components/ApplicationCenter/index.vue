@@ -1,6 +1,6 @@
 <template>
   <n-space vertical>
-    <n-button type="primary" @click="getApplicationList()">刷新</n-button>
+    <n-button type="primary" @click="getApplicationList()" :loading="loading">刷新</n-button>
     <br />
 
     <div v-if="loading"
@@ -70,16 +70,20 @@ const applicationList = ref([
 ])
 
 async function getApplicationList() {
+  loading.value = true;
+  success.value = false;
   StartLoadingBar();
   const info = {
     "username": store.getters.get_username,
   };
   const rs = await get("/v1/application/list", info);
   if (rs.status === 200) {
+    if (rs.data.list.length === 0){
+      applicationList.value = [];
+    }
     applicationList.value = rs.data.list;
     loading.value = false;
     success.value = true;
-    console.log(applicationList.value);
   } else {
     loading.value = false;
     sendErrorMessage("列表获取失败");

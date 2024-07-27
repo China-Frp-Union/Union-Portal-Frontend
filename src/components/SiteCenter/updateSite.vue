@@ -16,7 +16,7 @@
   </n-form>
 </template>
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
@@ -27,24 +27,26 @@ const formValue = ref({
   "description": "",
   "url": "",
   "logoUrl": ""
-})
+});
 
 const props = defineProps({
   id: {
     type: String,
     required: true
   }
-})
+});
 
+const emit = defineEmits(["updateSuccess"]);
 
 async function submitForm() {
   StartLoadingBar();
   const info = getInfo(formValue.value);
   info["username"] = store.getters.get_username;
-  info["id"] = props.id
+  info["id"] = props.id;
   const rs = await post("/v1/site/update", info);
   if (rs.status === 200) {
     sendSuccessMessage("更新成功");
+    emit("updateSuccess");
   } else {
     sendErrorMessage("更新失败: " + rs.data.msg);
   }

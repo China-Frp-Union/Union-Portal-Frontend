@@ -10,7 +10,7 @@
   </n-form>
 </template>
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
@@ -28,6 +28,7 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(["updateSuccess"]);
 
 async function submitForm() {
   StartLoadingBar();
@@ -37,6 +38,7 @@ async function submitForm() {
   const rs = await post("/v1/blacklist/update/web", info);
   if (rs.status === 200) {
     sendSuccessMessage("更新成功");
+    emit("updateSuccess");
   } else {
     sendErrorMessage("更新失败: " + rs.data.msg);
   }

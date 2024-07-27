@@ -1,9 +1,9 @@
 <template>
   <n-modal v-model:show="showUpdateSite" :mask-closable="false" preset="card" style="width: 600px" title="修改站点信息">
-    <updateSite :id="updateId"></updateSite>
+    <updateSite :id="updateId" @updateSuccess="handleUpdateSuccess()"></updateSite>
   </n-modal>
   <n-space vertical>
-    <n-button type="primary" @click="getSiteList()">刷新</n-button>
+    <n-button type="primary" @click="getSiteList()" :loading="loading">刷新</n-button>
     <br />
 
     <div v-if="loading"
@@ -18,7 +18,7 @@
     <n-table v-if="!loading && success" striped>
       <thead>
         <tr>
-          <th>申请 ID</th>
+          <th>站点 ID</th>
           <th>站点名</th>
           <th>描述</th>
           <th>站点 URL</th>
@@ -76,7 +76,15 @@ const siteList = ref([
     "url": "",
   }
 ])
+
+function handleUpdateSuccess() {
+  showUpdateSite.value = false;
+  getSiteList();
+}
+
 async function getSiteList() {
+  loading.value = true;
+  success.value = false;
   StartLoadingBar();
   const rs = await get("/v1/list/get");
   const permission = Number(store.getters.get_permission);
