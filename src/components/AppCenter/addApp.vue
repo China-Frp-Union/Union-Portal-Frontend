@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import { post } from "@utils/request/axios.js";
 import store from "@utils/stores/profile.js";
 import { SendSuccessDialog, SendErrorDialog } from "@utils/dialog.js";

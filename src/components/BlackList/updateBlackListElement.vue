@@ -4,13 +4,13 @@
       <n-input v-model:value="formValue.email" placeholder="请输入邮箱, 多个邮箱可用 ; 分隔" />
     </n-form-item>
     <n-form-item label="原因" path="reason">
-      <n-input v-model:value="formValue.reason" placeholder="请输入原因" />
+      <n-input type="textarea" v-model:value="formValue.reason" placeholder="请输入原因" />
     </n-form-item>
     <n-button type="primary" @click="submitForm">提交</n-button>
   </n-form>
 </template>
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";

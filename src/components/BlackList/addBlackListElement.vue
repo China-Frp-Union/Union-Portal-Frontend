@@ -8,7 +8,7 @@
         <n-input v-model:value="formValue.email" placeholder="输入邮箱" />
       </n-form-item-gi>
       <n-form-item-gi span="1" label="原因" path="reason">
-        <n-input v-model:value="formValue.reason" placeholder="输入原因" />
+        <n-input type="textarea" v-model:value="formValue.reason" placeholder="输入原因" />
       </n-form-item-gi>
       <n-form-item-gi span="1">
         <n-button attr-type="button" type="primary" @click="submit()">
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import { get, post } from "@utils/request/axios.js";
 import store from "../../utils/stores/profile.js";
 import { sendErrorMessage } from "@utils/message.js";

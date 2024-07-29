@@ -10,7 +10,7 @@
   </n-form>
 </template>
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
