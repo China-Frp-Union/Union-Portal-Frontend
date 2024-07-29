@@ -24,41 +24,46 @@
     <div v-if="!loading && !success">
       <p>获取数据失败，可能是网络开小差了~</p>
     </div>
-
-    <n-table v-if="!loading && success" striped>
-      <thead>
-        <tr>
-          <th>封禁 ID</th>
-          <th>所属应用AppId</th>
-          <th>邮箱</th>
-          <th>原因</th>
-          <th>创建时间</th>
-          <th>更新时间</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="i in blacklist">
-          <td>{{ i.id }}</td>
-          <td>{{ i.appId }}</td>
-          <td v-if="i.email.indexOf(';') !== -1"><n-tag style="margin-right: 10px" type="success"
-              v-for="b in i.email.split(';')">
-              {{ b }}
-            </n-tag></td>
-          <td v-else><n-tag type="success">
-              {{ i.email }}
-            </n-tag></td>
-          <td>{{ i.reason }}</td>
-          <td>{{ i.createdAt }}</td>
-          <td>{{ i.updatedAt }}</td>
-          <td><n-space>
-              <n-button type="info" @click="updateId = i.id; showUpdateBlackListElement = true"
-                :disabled="notLogin">更新</n-button>
-              <n-button type="error" @click="deleteBlackList(i.id)" :disabled="notLogin">删除</n-button>
-            </n-space></td>
-        </tr>
-      </tbody>
-    </n-table>
+    <n-scrollbar x-scrollable>
+      <n-table v-if="!loading && success" striped>
+        <thead>
+          <tr>
+            <th>封禁 ID</th>
+            <th>所属应用AppId</th>
+            <th>邮箱</th>
+            <th>原因</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="i in blacklist">
+            <td>{{ i.id }}</td>
+            <td>{{ i.appId }}</td>
+            <td v-if="i.email.indexOf(';') !== -1"><n-tag style="margin-right: 10px;" type="success"
+                v-for="b in i.email.split(';')">
+                {{ b }}
+              </n-tag></td>
+            <td v-else><n-tag type="success">
+                {{ i.email }}
+              </n-tag></td>
+            <td>
+              <n-ellipsis expand-trigger="click" :line-clamp="1" :tooltip="false">
+                <n-text v-html="marked(i.reason)"></n-text>
+              </n-ellipsis>
+            </td>
+            <td>{{ i.createdAt }}</td>
+            <td>{{ i.updatedAt }}</td>
+            <td><n-space>
+                <n-button type="info" @click="updateId = i.id; showUpdateBlackListElement = true"
+                  :disabled="notLogin">更新</n-button>
+                <n-button type="error" @click="deleteBlackList(i.id)" :disabled="notLogin">删除</n-button>
+              </n-space></td>
+          </tr>
+        </tbody>
+      </n-table>
+    </n-scrollbar>
   </n-space>
 </template>
 
@@ -70,6 +75,7 @@ import addBlackListElement from "./addBlackListElement.vue";
 import updateBlackListElement from "./updateBlackListElement.vue";
 import store from "@utils/stores/profile.js";
 import { useDialog } from "naive-ui";
+import { marked } from "marked";
 import { FinishLoadingBar, StartLoadingBar } from "@utils/loadingbar.js";
 
 var loading = ref(true);
