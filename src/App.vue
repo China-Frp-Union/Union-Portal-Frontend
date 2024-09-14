@@ -1,8 +1,8 @@
 <script setup>
-import loadingBar from "./components/LoadingBar.vue"
-import Message from "./components/Message.vue"
-import DialogBox from "./components/Dialog.vue"
-import Portal from "./views/Portal.vue"
+import loadingBar from "./components/LoadingBar.vue";
+import Message from "./components/Message.vue";
+import DialogBox from "./components/Dialog.vue";
+import Portal from "./views/Portal.vue";
 </script>
 
 <template>
