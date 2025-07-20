@@ -11,7 +11,7 @@ import Menu from "./Menu.vue";
 </script>
 <style scoped>
 #header {
-  margin-block: 10px;
-  margin-left: 20px;
+  padding-top: 10px;
+  padding-left: 24px;
 }
 </style>
