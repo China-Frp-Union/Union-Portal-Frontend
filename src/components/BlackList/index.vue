@@ -5,7 +5,7 @@
   </n-modal>
   <n-modal v-model:show="showUpdateBlackListElement" :mask-closable="false" preset="card" style="width: 600px"
     title="修改黑名单">
-    <updateBlackListElement :id="updateId" @updateSuccess="handleUpdateSuccess()"></updateBlackListElement>
+    <updateBlackListElement :id="updateId" :data="updateData" @updateSuccess="handleUpdateSuccess()"></updateBlackListElement>
   </n-modal>
   <n-space vertical>
     <n-space>
@@ -56,7 +56,7 @@
             <td>{{ i.createdAt }}</td>
             <td>{{ i.updatedAt }}</td>
             <td><n-space>
-                <n-button type="info" @click="updateId = i.id; showUpdateBlackListElement = true"
+                <n-button type="info" @click="handleUpdate(i)"
                   :disabled="notLogin">更新</n-button>
                 <n-button type="error" @click="deleteBlackList(i.id)" :disabled="notLogin">删除</n-button>
               </n-space></td>
@@ -83,6 +83,7 @@ var success = ref(false);
 
 const notLogin = !store.getters.get_token;
 const updateId = ref("");
+const updateData = ref({});
 const searchByEmail = ref("");
 const dialog = useDialog();
 const showUpdateBlackListElement = ref(false);
@@ -101,6 +102,12 @@ const blacklist = ref([
 function handleUpdateSuccess(){
   showUpdateBlackListElement.value = false;
   getBlacklist();
+}
+
+function handleUpdate(row) {
+  updateId.value = row.id;
+  updateData.value = { ...row };
+  showUpdateBlackListElement.value = true;
 }
 
 function handleAddSuccess(){

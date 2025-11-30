@@ -1,6 +1,6 @@
 <template>
   <n-modal v-model:show="showUpdateSite" :mask-closable="false" preset="card" style="width: 600px" title="修改站点信息">
-    <updateSite :id="updateId" @updateSuccess="handleUpdateSuccess()"></updateSite>
+    <updateSite :id="updateId" :data="updateData" @updateSuccess="handleUpdateSuccess()"></updateSite>
   </n-modal>
   <n-space vertical>
     <n-button type="primary" @click="getSiteList()" :loading="loading">刷新</n-button>
@@ -37,7 +37,7 @@
           <td>{{ i.code }}</td>
           <td>
             <n-space>
-              <n-button type="info" @click="updateId = i.id; showUpdateSite = true"
+              <n-button type="info" @click="handleUpdate(i)"
                 :disabled="!canEdit[i.id]">更新</n-button>
               <n-button type="error" @click="deleteSite(i.id)" :disabled="!canDelete[i.id]">删除</n-button>
             </n-space>
@@ -63,6 +63,7 @@ var success = ref(false);
 const canEdit = ref([]);
 const canDelete = ref([]);
 const updateId = ref("");
+const updateData = ref({});
 const showUpdateSite = ref(false);
 const dialog = useDialog();
 const siteList = ref([
@@ -80,6 +81,12 @@ const siteList = ref([
 function handleUpdateSuccess() {
   showUpdateSite.value = false;
   getSiteList();
+}
+
+function handleUpdate(row) {
+  updateId.value = row.id;
+  updateData.value = { ...row };
+  showUpdateSite.value = true;
 }
 
 async function getSiteList() {

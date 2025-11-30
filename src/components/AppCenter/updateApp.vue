@@ -4,13 +4,13 @@
       <n-input v-model:value="formValue.appName" placeholder="请输入应用名" />
     </n-form-item>
     <n-form-item label="应用描述" path="appDescription">
-      <n-input v-model:value="formValue.appDescription" placeholder="请输入应用描述" />
+      <n-input v-model:value="formValue.appDescription" type="textarea" placeholder="请输入应用描述" />
     </n-form-item>
     <n-button type="primary" @click="submitForm">提交</n-button>
   </n-form>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
@@ -25,8 +25,19 @@ const props = defineProps({
   id: {
     type: String,
     required: true
+  },
+  data: {
+    type: Object,
+    default: () => ({})
   }
 })
+
+watch(() => props.data, (newVal) => {
+  if (newVal) {
+    formValue.value.appName = newVal.appName || "";
+    formValue.value.appDescription = newVal.appDescription || "";
+  }
+}, { immediate: true });
 
 const emit = defineEmits(["updateSuccess"])
 

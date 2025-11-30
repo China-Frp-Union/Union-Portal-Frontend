@@ -10,7 +10,7 @@
   </n-form>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
@@ -25,8 +25,19 @@ const props = defineProps({
   id: {
     type: String,
     required: true
+  },
+  data: {
+    type: Object,
+    default: () => ({})
   }
 })
+
+watch(() => props.data, (newVal) => {
+  if (newVal) {
+    formValue.value.email = newVal.email || "";
+    formValue.value.reason = newVal.reason || "";
+  }
+}, { immediate: true });
 
 const emit = defineEmits(["updateSuccess"]);
 

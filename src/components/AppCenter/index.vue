@@ -3,7 +3,7 @@
     <addApp @addSuccess="handleAddSuccess()"></addApp>
   </n-modal>
   <n-modal v-model:show="showUpdateApp" :mask-closable="false" preset="card" style="width: 600px" title="修改应用">
-    <updateApp :id="updateId" @updateSuccess="handleUpdateSuccess()"></updateApp>
+    <updateApp :id="updateId" :data="updateData" @updateSuccess="handleUpdateSuccess()"></updateApp>
   </n-modal>
   <n-space vertical>
     <n-space>
@@ -59,7 +59,7 @@
           <td v-else><n-tag type="error">{{ i.status }}</n-tag></td>
           <td>
             <n-space>
-              <n-button type="info" @click="updateId = i.id; showUpdateApp = true">更新</n-button>
+              <n-button type="info" @click="handleUpdate(i)">更新</n-button>
               <n-button type="error" @click="deleteApp(i.id)">删除</n-button>
             </n-space>
           </td>
@@ -83,6 +83,7 @@ var loading = ref(true);
 var success = ref(false);
 
 const updateId = ref("");
+const updateData = ref({});
 const dialog = useDialog();
 const DontShowAppSecret = ref([]);
 const showAddApp = ref(false);
@@ -97,6 +98,12 @@ function handleAddSuccess(){
 function handleUpdateSuccess(){
   showUpdateApp.value = false;
   getAppList();
+}
+
+function handleUpdate(row) {
+  updateId.value = row.id;
+  updateData.value = { ...row };
+  showUpdateApp.value = true;
 }
 
 async function getApplist() {
