@@ -15,36 +15,39 @@
       <p>获取数据失败，可能是网络开小差了~</p>
     </div>
 
-    <n-table v-if="!loading && success" striped>
-      <thead>
-        <tr>
-          <th>站点 ID</th>
-          <th>站点名</th>
-          <th>描述</th>
-          <th>站点 URL</th>
-          <th>LOGO URL</th>
-          <th>识别码</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="i in siteList">
-          <td>{{ i.id }}</td>
-          <td>{{ i.name }}</td>
-          <td>{{ i.description }}</td>
-          <td>{{ i.url }}</td>
-          <td>{{ i.logoUrl }}</td>
-          <td>{{ i.code }}</td>
-          <td>
-            <n-space>
-              <n-button type="info" @click="handleUpdate(i)"
-                :disabled="!canEdit[i.id]">更新</n-button>
-              <n-button type="error" @click="deleteSite(i.id)" :disabled="!canDelete[i.id]">删除</n-button>
-            </n-space>
-          </td>
-        </tr>
-      </tbody>
-    </n-table>
+    <n-scrollbar x-scrollable>
+      <n-table v-if="!loading && success" striped>
+        <thead>
+          <tr>
+            <th>站点 ID</th>
+            <th>站点名</th>
+            <th>描述</th>
+            <th>站点 URL</th>
+            <th>LOGO URL</th>
+            <th>识别码</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="i in siteList">
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>
+              <n-ellipsis expand-trigger="click" :line-clamp="3" :tooltip="false">{{ i.description }}</n-ellipsis>
+            </td>
+            <td>{{ i.url }}</td>
+            <td>{{ i.logoUrl }}</td>
+            <td>{{ i.code }}</td>
+            <td>
+              <n-space>
+                <n-button type="info" @click="handleUpdate(i)" :disabled="!canEdit[i.id]">更新</n-button>
+                <n-button type="error" @click="deleteSite(i.id)" :disabled="!canDelete[i.id]">删除</n-button>
+              </n-space>
+            </td>
+          </tr>
+        </tbody>
+      </n-table>
+    </n-scrollbar>
   </n-space>
 </template>
 

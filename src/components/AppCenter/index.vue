@@ -21,6 +21,7 @@
       <p>获取数据失败，可能是网络开小差了~</p>
     </div>
 
+    <n-scrollbar x-scrollable>
     <n-table v-if="!loading && success" striped>
       <thead>
         <tr>
@@ -66,6 +67,7 @@
         </tr>
       </tbody>
     </n-table>
+    </n-scrollbar>
   </n-space>
 </template>
 <script setup>

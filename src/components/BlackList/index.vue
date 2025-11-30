@@ -49,7 +49,7 @@
                 {{ i.email }}
               </n-tag></td>
             <td>
-              <n-ellipsis expand-trigger="click" :line-clamp="1" :tooltip="false">
+              <n-ellipsis expand-trigger="click" :line-clamp="3" :tooltip="false">
                 <n-text v-html="marked(i.reason)"></n-text>
               </n-ellipsis>
             </td>
