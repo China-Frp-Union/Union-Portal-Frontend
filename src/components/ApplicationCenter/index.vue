@@ -11,36 +11,36 @@
     <div v-if="!loading && !success">
       <p>获取数据失败，可能是网络开小差了~</p>
     </div>
-
-    <n-table v-if="!loading && success" striped>
-      <thead>
-        <tr>
-          <th>申请 ID</th>
-          <th>站点名</th>
-          <th>描述</th>
-          <th>站点 URL</th>
-          <th>LOGO URL</th>
-          <th>联系方式</th>
-          <th>申请时间</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="i in applicationList">
-          <td>{{ i.id }}</td>
-          <td>{{ i.name }}</td>
-          <td>{{ i.description }}</td>
-          <td>{{ i.url }}</td>
-          <td>{{ i.logoUrl }}</td>
-          <td>{{ i.contact }}</td>
-          <td>{{ i.time }}</td>
-          <td><n-space>
-              <n-button type="success" @click="acceptApplication(i.id)">同意</n-button>
-              <n-button type="error" @click="refuseApplication(i.id)">拒绝</n-button>
-            </n-space></td>
-        </tr>
-      </tbody>
-    </n-table>
+    <n-scrollbar x-scrollable>
+      <n-table v-if="!loading && success" striped>
+        <thead>
+          <tr>
+            <th>申请 ID</th>
+            <th>站点名</th>
+            <th>描述</th>
+            <th>站点 URL</th>
+            <th>LOGO URL</th>
+            <th>联系方式</th>
+            <th>申请时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="i in applicationList">
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.description }}</td>
+            <td>{{ i.url }}</td>
+            <td>{{ i.logoUrl }}</td>
+            <td>{{ i.contact }}</td>
+            <td>{{ i.time }}</td>
+            <td><n-space>
+                <n-button type="success" @click="acceptApplication(i.id)">同意</n-button>
+                <n-button type="error" @click="refuseApplication(i.id)">拒绝</n-button>
+              </n-space></td>
+          </tr>
+        </tbody>
+      </n-table></n-scrollbar>
   </n-space>
 </template>
 
@@ -78,7 +78,7 @@ async function getApplicationList() {
   };
   const rs = await get("/v1/application/list", info);
   if (rs.status === 200) {
-    if (rs.data.list.length === 0){
+    if (rs.data.list.length === 0) {
       applicationList.value = [];
     }
     applicationList.value = rs.data.list;

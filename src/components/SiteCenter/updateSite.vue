@@ -4,7 +4,7 @@
       <n-input v-model:value="formValue.name" placeholder="请输入站点名" />
     </n-form-item>
     <n-form-item label="站点描述" path="description">
-      <n-input v-model:value="formValue.description" placeholder="请输入站点描述" />
+      <n-input v-model:value="formValue.description" type="textarea" placeholder="请输入站点描述" />
     </n-form-item>
     <n-form-item label="站点 URL" path="url">
       <n-input v-model:value="formValue.url" placeholder="请输入站点 URL" />
@@ -16,7 +16,7 @@
   </n-form>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import store from "@utils/stores/profile.js";
 import { post } from "@utils/request/axios.js";
 import { sendErrorMessage, sendSuccessMessage } from "@utils/message.js";
@@ -33,8 +33,21 @@ const props = defineProps({
   id: {
     type: String,
     required: true
+  },
+  data: {
+    type: Object,
+    default: () => ({})
   }
 });
+
+watch(() => props.data, (newVal) => {
+  if (newVal) {
+    formValue.value.name = newVal.name || "";
+    formValue.value.description = newVal.description || "";
+    formValue.value.url = newVal.url || "";
+    formValue.value.logoUrl = newVal.logoUrl || "";
+  }
+}, { immediate: true });
 
 const emit = defineEmits(["updateSuccess"]);
 
