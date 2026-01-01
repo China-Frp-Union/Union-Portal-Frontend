@@ -33,6 +33,9 @@
         <n-li>
           <n-a href="https://paypal.me/AehxyCN" style="text-decoration: none;" target="_blank">Aehxy 的个人小站</n-a>
         </n-li>
+        <n-li>
+          <n-a href="https://milu.ink" style="text-decoration: none;" target="_blank">米露小窝</n-a>
+        </n-li>
       </n-flex>
     </n-layout-footer>
   </n-layout>
